@@ -12,7 +12,6 @@ char end_latitude_prev[MAX_SESSIONS][DATASIZE];
 char end_longitude_prev[MAX_SESSIONS][DATASIZE];
 char distance_prev[MAX_SESSIONS][DATASIZE];
 char average_speed_prev[MAX_SESSIONS][DATASIZE];
-//char *maximum_speed_prev[MAX_SESSIONS];
 
 void getPreviousSessions(void);
 

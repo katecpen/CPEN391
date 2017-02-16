@@ -345,8 +345,8 @@ void getDistanceAndSpeed(char *distance, char *speed) {
 	if (session_started == 0) {
 		distance_int = 0;
 		speed_int = 0;
-		strcpy(distance, "0 M");
-		strcpy(speed, "0 M/S");
+		strcpy(distance, "0");
+		strcpy(speed, "0");
 		return;
 	}
 
@@ -364,7 +364,7 @@ void getDistanceAndSpeed(char *distance, char *speed) {
 	// Since distance is in meters and speed is in m/s, and since logs are extracted at 1 second intervals,
 	// speed (m/s) = distance (m)
 	speed_int = (int)distance_float;
-	sprintf(speed, "%d M/S", speed_int);
+	sprintf(speed, "%d", speed_int);
 
 	// If first log of the session (or before session starts):
 	// Set total distance to distance between last two points
@@ -384,14 +384,14 @@ void getDistanceAndSpeed(char *distance, char *speed) {
 		}
 	}
 
-	sprintf(distance, "%d M", distance_int);
+	sprintf(distance, "%d", distance_int);
 }
 
 /*
  * Store the average speed of the session into average_speed
  */
 void getAverageSpeed(char *average_speed) {
-	sprintf(average_speed, "%d M/S", (distance_int / time_elapsed_seconds));
+	sprintf(average_speed, "%d", (distance_int / time_elapsed_seconds));
 }
 
 /*

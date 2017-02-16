@@ -328,7 +328,6 @@ CURRENT_SESSION_STATES:
 			printf("YOU PRESSED HOME\n");
 			session_started = 0;
 			extracted_first_log = 0;
-			getSessionData();
 			return;
 			break;
 		default :

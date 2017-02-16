@@ -322,6 +322,8 @@ void parseCount(char * JSON_STRING){
 	            sprintf(prevCount, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",prevCount);
 	            strcpy(cur_session, prevCount);
+	            num_sessions = atoi(prevCount);
+	            printf("Cursession: %s\n", cur_session);
 	            //sprintf(dist1, "%d", distance1_achieved);
 	            //speed2_achieved = atoi(startTime) / 10;
 	            i++;
@@ -331,7 +333,7 @@ void parseCount(char * JSON_STRING){
 	                   JSON_STRING + t[i+1].start);
 	            char *startTime;
 	            //strncpy(startTime, JSON_STRING + t[i+1].start, t[i+1].end-t[i+1].start);
-	            sprintf(startTime, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(startTime, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",startTime);
 	            //sprintf(dist1, "%d", distance1_achieved);
 	            //speed2_achieved = atoi(startTime) / 10;
@@ -341,7 +343,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- end_time: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *endTime;
-	            sprintf(endTime, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(endTime, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",endTime);
 	            //session1_achieved = atoi(session1) / 10;
 	            i++;
@@ -350,7 +352,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- start_lat: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *startLat;
-	            sprintf(startLat, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(startLat, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",startLat);
 	            //distance1_achieved = atoi(distance1) / 10;
 	            i++;
@@ -359,7 +361,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- start_long: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *start_long;
-	            sprintf(start_long, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(start_long, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",start_long);
 	            //session2_achieved = atoi(session2);
 	            i++;
@@ -368,7 +370,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- end_lat: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *endLat;
-	            sprintf(endLat, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(endLat, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",endLat);
 	            //asda = atoi(endLat);
 	            i++;
@@ -377,7 +379,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- end_long: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *endLong;
-	            sprintf(endLong, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(endLong, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",endLong);
 	            i++;
 	        } else if (jsoneq(JSON_STRING, &t[i], "total_distance") == 0) {
@@ -385,7 +387,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- total_distance: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *totalDistance;
-	            sprintf(totalDistance, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(totalDistance, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",totalDistance);
 	            //distance2_achieved = atoi(totalDistance);
 	            i++;
@@ -394,7 +396,7 @@ void parseCount(char * JSON_STRING){
 	            printf("- speed: %.*s\n", t[i+1].end-t[i+1].start,
 	                   JSON_STRING + t[i+1].start);
 	            char *speed;
-	            sprintf(speed, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
+	            //sprintf(speed, "%.*s", t[i+1].end-t[i+1].start, JSON_STRING + t[i+1].start);
 	            printf("\n %s \n",speed);
 	            i++;
 	        }

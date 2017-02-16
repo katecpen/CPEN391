@@ -201,7 +201,7 @@ void drawLog() {
 	drawString(position_string, 10, 30, BLACK, WHITE);
 	// Draw the Distance and Speed that is displayed on Current Session
 	char distance_speed_string[DATASIZE];
-	sprintf(distance_speed_string, "Distance: %s, Speed: %s", distance, speed);
+	sprintf(distance_speed_string, "Distance: %s M, Speed: %s M/S", distance, speed);
 	drawString(distance_speed_string, 10, 50, BLACK, WHITE);
 }
 
@@ -284,7 +284,7 @@ void drawEntry(char* stime, char* time_elapsed, char* start_latitude, char *star
 
 	// Draw the Distance and Speed
 	char distance_speed_string[DATASIZE];
-	sprintf(distance_speed_string, "Distance: %s, Average Speed: %s", distance, average_speed);
+	sprintf(distance_speed_string, "Distance: %s M, Average Speed: %s M/S", distance, average_speed);
 	drawString(distance_speed_string, x, y + 20, BLACK, WHITE);
 
 	// Draw start position and end position
@@ -471,6 +471,7 @@ void printDialNumber(char number, int dialIndex) {
  * Write text that the achievements are initially locked
  */
 void drawLockedAchievement(int x, int y) {
+	int achievementsRadius = 80;
 	Circle(x, y , achievementsRadius, BLACK);
 	drawString(lockedAchievementString, x - 40, y - 5, WHITE, BLACK);
 }
@@ -479,6 +480,7 @@ void drawLockedAchievement(int x, int y) {
  * Drawing the medal for unlocking first distance achievement
  */
 void drawAchievementDistance1() {
+	int achievementsRadius = 80;
 	int x = 120;
 	int y = 100;
 	// Check the distance1_achieved flag to determine if achievement is locked or not
@@ -498,6 +500,7 @@ void drawAchievementDistance1() {
  * Drawing the medal for unlocking second distance achievement
  */
 void drawAchievementDistance2() {
+	int achievementsRadius = 80;
 	int x = 120;
 	int y = 300;
 	// Check the distance2_achieved flag to determine if achievement is locked or not
@@ -516,6 +519,7 @@ void drawAchievementDistance2() {
  * Drawing the medal for unlocking first session achievement
  */
 void drawAchievementSession1() {
+	int achievementsRadius = 80;
 	int x = 399;
 	int y = 100;
 	// Check the session1_achieved flag to determine if achievement is locked or not
@@ -534,6 +538,7 @@ void drawAchievementSession1() {
  * Drawing the medal for unlocking second session achievement
  */
 void drawAchievementSession2() {
+	int achievementsRadius = 80;
 	int x = 399;
 	int y = 300;
 	// Check the session2_achieved flag to determine if achievement is locked or not
@@ -552,6 +557,7 @@ void drawAchievementSession2() {
  * Drawing the medal for unlocking first speed achievement
  */
 void drawAchievementSpeed1() {
+	int achievementsRadius = 80;
 	int x = 678;
 	int y = 100;
 	// Check the speed1_achieved flag to determine if achievement is locked or not
@@ -570,6 +576,7 @@ void drawAchievementSpeed1() {
  * Drawing the medal for unlocking second speed achievement
  */
 void drawAchievementSpeed2() {
+	int achievementsRadius = 80;
 	int x = 678;
 	int y = 300;
 	// Check the speed2_achieved flag to determine if achievement is locked or not
@@ -610,11 +617,76 @@ void drawAchievementsScreen() {
 		parseAchievements(response);
 	}
 
-	// Calculate new Achievement
+	char countCommand[500];
+	char countResponse[500];
 
+	createGetPrevSessionCountCommand(countCommand);
+	printf("command built: %s\n", countCommand);
+	sendCommand(countCommand);
+	usleep(5000);
+	waitForAPIResponse(64, countResponse);
+	printf("Prev Ses Response:\n %s \n", countResponse);
+	parseCount(countResponse);
 
+	// Parse count from response;
+	int prevSessionCount;
+	prevSessionCount = atoi(cur_session);
+	printf("\n\nCurrent index found : %d", prevSessionCount);
+
+	char curCommand[500];
+	char curResponse[500];
+	int i;
+	for (i = 0; i < num_sessions; i++)
+	{
+		char *id;
+		sprintf(id, "%d", i);
+		strcat(id, "_session");
+		strcpy(curCommand, "");
+		strcpy(curResponse, "");
+
+		createGetCommand(id, curCommand);
+		printf("command built: %s\n", curCommand);
+		sendCommand(curCommand);
+		usleep(5000);
+		waitForAPIResponse(64, curResponse);
+		printf("Prev Session #%d : %s\n", i, curResponse);
+		parseSession(curResponse, i);
+		// parse and save this session somewhere
+	}
+/*
+	char countCommand[500];
+	char countResponse[500];
+	createGetCommand("sessionCount", countCommand);
+	printf("command built: %s\n", countCommand);
+	sendCommand(countCommand);
+	usleep(5000);
+	waitForAPIResponse(64, countResponse);
+	parseCount(countResponse);
+*/
 	// Re-upload new Achievement states
+	if (atoi(distance_prev[num_sessions]) > 100){
+		distance1_achieved = 1;
+	}
 
+	if (atoi(distance_prev[num_sessions]) > 500){
+		distance2_achieved = 1;
+	}
+
+	if (num_sessions >= 2){
+		session1_achieved = 1;
+	}
+
+	if (num_sessions >= 4){
+		session2_achieved = 1;
+	}
+
+	if (atoi(average_speed_prev[num_sessions]) > 2){
+		speed1_achieved = 1;
+	}
+
+	if (atoi(average_speed_prev[num_sessions]) > 4){
+		speed2_achieved = 1;
+	}
 	// Parse response?
 
 
